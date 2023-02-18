@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Footer
+ *
+ */
+#}
+<footer class="footer" role="contentinfo">
+  <nav class="w-full" role="navigation" aria-label="{{ __('Navigation secondaire') }}">
+    {% include 'organisms/footer-menu.twig' with {
+      menu: footer_menu.get_items
+    } only %}
+  </nav>
+</footer>
+
+{{ function('wp_footer') }}

@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Header
+ *
+ */
+#}
+<header class="header" role="banner">
+  <a class="" href="{{ site.url }}" rel="home">{{ site.name }}</a>
+
+  <nav class="nav" role="navigation" aria-label="{{ __('Navigation principale') }}">
+    {% include 'organisms/menu.twig' with {
+      menu: header_menu.get_items
+    } only %}
+  </nav>
+</header>

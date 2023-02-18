@@ -1,0 +1,39 @@
+variables:
+  NODE_VERSION: 16
+  PHP_VERSION: '7.3'
+
+# External job definitions
+include:
+  - project: studiometa/gitlab-ci
+    ref: 2.x
+    file:
+      - config/bot/create-merge-request.yml
+      - config/node/npm-install.yml
+      - config/node/eslint.yml
+      - config/node/stylelint.yml
+      - config/node/prettier-twig.yml
+      - config/php/composer-install.yml
+      - config/php/phpcs.yml
+      - config/php/phpstan.yml
+      - config/release/gitlab.yml
+
+node_eslint:
+  variables:
+    ESLINT_ARGS: 'web/wp-content/themes/studiometa/src/**/*.{js,jsx}'
+
+node_stylelint:
+  variables:
+    STYLELINT_ARGS: 'web/wp-content/themes/studiometa/src/**/*.scss'
+
+node_prettier_twig:
+  variables:
+    PRETTIER_ARGS: 'web/wp-content/themes/studiometa/templates/**/*.twig'
+
+php_phpcs:
+  variables:
+    PHPCS_ARGS: --extensions=php --standard=./phpcs.xml --report=\\Satesh\\Phpcs\\GitLabReport --report-file=gl-phpcs-codequality.json
+
+php_phpstan:
+  variables:
+    PHP_EXEC_CMD_ARGS: -e 'XDEBUG_MODE=off'
+    PHPSTAN_ARGS: analyse --error-format=gitlab > gl-phpstan-codequality.json
